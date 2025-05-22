@@ -2,8 +2,8 @@ import Navbar from "../../components/Navbar/Navbar";
 import Intro from "../../components/Intro/Intro";
 import SwipeList from "../../components/SwipeList/SwipeList";
 import Reviews from "../../components/Reviews/Reviews";
-// import Services from "../../components/Services/Services";
-// import Footer from "../../components/Footer/Footer";
+import Services from "../../components/Services/Services";
+import Footer from "../../components/Footer/Footer";
 import "./HomePage.css"
 
 import { useContext } from "react";
@@ -24,9 +24,9 @@ export default function HomePage() {
             <Intro />
             <SwipeList/>
             <Reviews />
-            {/*<Services />
+            <Services />
             
-            <Footer />*/}
+            <Footer />
         
         </div>
   )
