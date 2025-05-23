@@ -1,7 +1,7 @@
-.homePageApp .n-wrapper {
+.n-wrapper {
   background-color: white;
 }
-.homePageApp.Dark .n-wrapper {
+body:has(.homePageApp.Dark ) .n-wrapper {
   background-color: #333;
 }
 
