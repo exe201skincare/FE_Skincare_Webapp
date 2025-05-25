@@ -1,9 +1,11 @@
 import { motion, useScroll, useMotionValueEvent, useTransform, useInView } from "framer-motion";
 import Logo from "/logo skincare 2.svg";
 import "./Navbar.css";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-scroll";
 
-const navbar = () => {
+const navbar = ({selected}) => {
+    const navigate = useNavigate();
     const { scrollYProgress } = useScroll();
 
     useMotionValueEvent(scrollYProgress, "change",
@@ -55,38 +57,40 @@ const navbar = () => {
                 <div className="n-list">
                     <ul style={{ listStyleType: "none" }}>
                         <li>
-                            <Link /*activeClass="active"*/ to="Intro" spy={true} smooth={true}>
+                            <Link to="top" spy={true} smooth={true} className={selected === "home" ? 'selected' : ''} 
+                               onClick={() => navigate('/')} style={{ cursor: 'pointer' }} >
                                 Home
                             </Link>
                         </li>
                         <li>
-                            <Link to="services" spy={true} smooth={true}>
+                            <a>
                                 AI Consultation
-                            </Link>
+                            </a>
                         </li>
                         <li>
-                            <Link to="experience" spy={true} smooth={true}>
+                            <a>
                                 Blog
-                            </Link>
+                            </a>
                         </li>
                         <li>
-                            <Link to="membership" spy={true} smooth={true}>
+                            <Link to="top" spy={true} smooth={true}>
                                 My Profile
                             </Link>
                         </li>
                         <li>
-                            <Link to="works" spy={true} smooth={true}>
+                            <Link to="top" spy={true} smooth={true} className={selected === "about" ? 'selected' : ''}
+                               onClick={() => navigate('/about_us')} style={{ cursor: 'pointer' }} >
                                 About
                             </Link>
                         </li>
                     </ul>
                 </div>
-                <Link to="contact" spy={true} smooth={true}>
+                <a>
                     <button className="homePageLoginButton">Log in</button>
-                </Link>
-                <Link to="contact" spy={true} smooth={true}>
+                </a>
+                <a>
                     <button className="homePageSigninButton">Sign in</button>
-                </Link>
+                </a>
             </div>
         </motion.div>
     );
