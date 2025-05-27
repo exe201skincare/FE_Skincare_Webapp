@@ -1,5 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
+import { AuthProvider, useAuth } from "./features/Auth/useAuth";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
 import { ThemeProvider } from "./Context";
 import './App.css';
 import HomePage from "./pages/HomePage/HomePage";
@@ -7,14 +10,32 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import AboutPage from "./pages/AboutPage/AboutPage";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import LoginPage from "./pages/LoginPage/LoginPage";
 
 function App() {
   return (
-    <AppRoutes />
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
   );
 }
 
 function AppRoutes() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { userAuth } = useAuth();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser || null);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) return <div className="loader" />;
+
   return (
     <>
       <ScrollToTop />
@@ -33,6 +54,8 @@ function AppRoutes() {
             <Footer />
           </ThemeProvider>
         } />
+        
+        <Route path="/login" element={<LoginPage />} />
         
       </Routes>
     </>

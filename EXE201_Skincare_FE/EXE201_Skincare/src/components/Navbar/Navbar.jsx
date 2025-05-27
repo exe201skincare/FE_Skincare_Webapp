@@ -86,7 +86,7 @@ const navbar = ({selected}) => {
                     </ul>
                 </div>
                 <a>
-                    <button className="homePageLoginButton">Log in</button>
+                    <button className="homePageLoginButton" onClick={() => navigate('/login')} style={{ cursor: 'pointer' }}>Log in</button>
                 </a>
                 <a>
                     <button className="homePageSigninButton">Sign in</button>
