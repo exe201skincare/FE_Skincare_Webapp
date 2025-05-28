@@ -1,0 +1,12 @@
+.profilePage {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-color);
+}
+
+.profilePage svg {
+    border-radius: 8px;
+    width: 86px;
+    height: 86px;
+    color: var(--primary-text-color);
+}

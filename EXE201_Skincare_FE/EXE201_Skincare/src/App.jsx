@@ -11,6 +11,9 @@ import Footer from "./components/Footer/Footer";
 import AboutPage from "./pages/AboutPage/AboutPage";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+
+import ProtectedRoutes from "./utils/ProtectedRoute";
 
 function App() {
   return (
@@ -56,6 +59,9 @@ function AppRoutes() {
         } />
         
         <Route path="/login" element={<LoginPage />} />
+        <Route element={user ? <ProtectedRoutes user={user} /> : <ProtectedRoutes user={userAuth} />}>
+          <Route path='/profile' element={ <ProfilePage /> } />
+        </Route>
         
       </Routes>
     </>

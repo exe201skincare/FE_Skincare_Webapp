@@ -9,12 +9,11 @@ import { Visibility, VisibilityOff, ArrowBack, ArrowForward, Mail, Lock } from '
 import "./LoginPage.css";
 import GoogleIcon from '../../assets/24px.svg';
 import FaceIcon from '../../assets/F-32px.svg';
-import GoogleLogo from '../../assets/272px-Google_2015_logo.png';
-import Logo from "/logo skincare 2.svg";
 import { useNavigate } from 'react-router-dom';
+import SigninPage from '../SigninPage/SigninPage';
 
 export default function LoginPage() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -35,7 +34,7 @@ export default function LoginPage() {
     try {
       const result = await signInWithPopup(auth, provider);
       sessionStorage.setItem("GG-username", result.user.displayName);
-      navigate("/role-selection");
+      navigate("/profile");
     } catch (error) {
       console.error("Google Login Failed:", error);
       setError("Failed to login. Please try again.");
@@ -45,13 +44,16 @@ export default function LoginPage() {
   const handleNormalLogin = async (e) => {
     e.preventDefault();
     try {
-      const user = await login(username, password);
+      const user = await login(email, password);
 
       if (user) {
         console.log(`User ${user} has logged in`);
         setTimeout(() => {
-          navigate('/'/*role === "ADMIN" ? "/AdminPage/UserManagement" : "/HomePage"*/);
+          navigate('/profile'/*role === "ADMIN" ? "/AdminPage/UserManagement" : "/HomePage"*/);
         }, 100);
+      }
+      else if (!user) {
+        setError("Failed to login. Please try again.");
       }
     } catch (error) {
       console.error("Login Failed:", error);
@@ -62,49 +64,7 @@ export default function LoginPage() {
   return (
     <div className='loginContainer'>
       <Box className={switched ? "signinBox" : "signinBox away"}>
-        <div className='signinLable'>
-          Account
-        <span>Create your account credentials</span>  
-        </div>
-        <form onSubmit={handleNormalLogin}>
-          <div className="input-field">
-            <label><Mail/> Email address</label>
-            <input
-              className="input"
-              type="text"
-              placeholder="Enter your email"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input-field">
-            <label><Lock /> Password</label>
-            <input
-                className="input"
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
-          </div>
-          <div className="input-field">
-            <label><Lock /> Confirm Password</label>
-            <input
-                className="input"
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
-          </div>
-          {error && <p className="error-message">{error}</p>}
-          <button className='loginButton' type="submit">
-            Continue <ArrowForward />
-          </button>
-        </form>
+        <SigninPage />
       </Box> 
         
       <Box className={switched ? "usernamePassLoginBox away" : "usernamePassLoginBox"}>
@@ -116,27 +76,29 @@ export default function LoginPage() {
             <label><Mail/> Email address</label>
             <input
               className="input"
-              type="text"
+              type="email"
               placeholder="Enter your email"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           <div className="input-field">
             <label><Lock /> Password</label>
-            <input
-                className="input"
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <div className={`passToggle ${showPassword ? 'hide' : 'show'}`} onClick={togglePasswordVisibility}>  
-                <Visibility className={showPassword ? 'show' : ''}/> <VisibilityOff className={showPassword ? '' : 'hide'}/>
-              </div>
+            <div className="passInput">
+              <input
+                  className="input"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <div className={`passToggle ${showPassword ? 'hide' : 'show'}`} onClick={togglePasswordVisibility}>  
+                  <Visibility className={showPassword ? 'show' : ''}/> <VisibilityOff className={showPassword ? '' : 'hide'}/>
+                </div>
             </div>
+          </div>
           {error && <p className="error-message">{error}</p>}
           <button className='loginButton' type="submit">
             Continue <ArrowForward />
@@ -150,7 +112,7 @@ export default function LoginPage() {
         <button onClick={handleGoogleLogin} className='GoogleLoginButton'>
           <img src={GoogleIcon} alt='Google Icon' className='GGIcon' /> Google
         </button>
-        <button onClick={handleGoogleLogin} className='FaceLoginButton'>
+        <button className='FaceLoginButton'>
           <img src={FaceIcon} alt='Face Icon' className='GGIcon' /> Facebook
         </button>
       </div>

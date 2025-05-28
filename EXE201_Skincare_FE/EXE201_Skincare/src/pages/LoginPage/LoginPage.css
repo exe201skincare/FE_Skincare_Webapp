@@ -72,6 +72,12 @@
     outline: none; border: 2px solid black;
     border-radius: 12px;
 }
+.usernamePassLoginBox .input-field .passInput {
+    display: flex;
+    align-items: end;
+    width: 100%;
+    height: 40px;
+}
 .usernamePassLoginBox .input-field input::placeholder { user-select: none; padding-left: 10px; transform: translateX(0%); transition: transform 0.4s ease;}
 .usernamePassLoginBox .input-field input:focus-within::placeholder { transform: translateX(-100%); transition: transform 0.3s ease;}
 
@@ -131,6 +137,12 @@
     outline: none; border: 2px solid black;
     border-radius: 12px;
 }
+.signinBox .input-field .passInput {
+    display: flex;
+    align-items: end;
+    width: 100%;
+    height: 40px;
+}
 .signinBox .input-field input::placeholder { user-select: none; padding-left: 10px; transform: translateX(0%); transition: transform 0.4s ease;}
 .signinBox .input-field input:focus-within::placeholder { transform: translateX(-100%); transition: transform 0.3s ease;}
 
@@ -179,7 +191,7 @@
     width: 96%;
     cursor: pointer;
     background-color: #EAC2AD;
-    color: #fff;
+    color: #000;
     border: none;
     display: flex;
     justify-content: center;
@@ -244,7 +256,8 @@
 
 .loginButton:hover{
     padding-left: 20px;
-    background-color: var(--border-color);
+    background-color: var(--bg-color);
+    outline: 2px #333 solid;
     transition: all 0.3s ease;
 }
 
@@ -268,10 +281,10 @@
 .passToggle {
     border-left: 2px solid #ffffff99;
     padding: 5px;
-    position: absolute;
-    right: 80px;
-    top: 280px;
     display: flex;
+    position: absolute;
+    margin-bottom: 6px;
+    right: 80px;
 }
 .passToggle.show { flex-direction: row-reverse; }
 .passToggle.hide { flex-direction: row; }
@@ -291,8 +304,20 @@
 }
 
 .back-btn {
-    padding: 4px 15px 0 10px;
+    padding: 4px 15px 0 14px;
     position: absolute;
+    background-color: var(--bg-color);
+    color: var(--primary-text-color);
+    border: 1px transparent solid; transition: all 0.3s ease;
     top: 20px;
     left: 40px;
+}
+.back-btn:hover {
+    border: 1px #333 solid;
+    transform: translateX(-2px);
+    box-shadow: 2px 1px 5px #555;
+}
+
+.error-message {
+    color: red;
 }
