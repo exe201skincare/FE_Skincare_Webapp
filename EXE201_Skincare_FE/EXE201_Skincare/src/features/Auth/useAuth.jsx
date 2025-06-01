@@ -46,6 +46,31 @@ export const AuthProvider = ({ children }) => {
         sessionStorage.setItem("username", response.data.name);
         sessionStorage.setItem("role", response.data.role);
         sessionStorage.setItem("email", email);
+        sessionStorage.setItem("LoggedInAs", "AccountIndex");
+        
+        window.dispatchEvent(new Event("storage"));
+
+        return response.data;
+      } else {
+        throw new Error("Invalid email or password");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      return null;
+    }
+  };
+
+  const googleLogin = async (email, idToken) => {
+    try {
+      const response = await axios.post("http://skincareapp.somee.com/SkinCare/Auth/login-google", 
+        { idToken }
+      );
+
+      if (response) {
+        sessionStorage.setItem("username", response.data.name);
+        sessionStorage.setItem("role", response.data.role);
+        sessionStorage.setItem("email", email);
+        sessionStorage.setItem("LoggedInAs", "Google");
         
         window.dispatchEvent(new Event("storage"));
 
@@ -75,7 +100,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ userAuth, login, logout }}>
+    <AuthContext.Provider value={{ userAuth, login, googleLogin, logout }}>
       {children}
     </AuthContext.Provider>
   );

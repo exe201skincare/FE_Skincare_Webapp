@@ -12,15 +12,15 @@ import FaceIcon from '../../assets/F-32px.svg';
 import { useNavigate } from 'react-router-dom';
 import SigninPage from '../SigninPage/SigninPage';
 
-export default function LoginPage() {
+const LoginPage = ({accountAction}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const [error, setError] = useState(null);
-  const [switched, setSwitched] = useState(false);
+  const [switched, setSwitched] = useState(accountAction);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
 
   const handleClick = () => {
     setSwitched(!switched);
@@ -34,8 +34,12 @@ export default function LoginPage() {
     try {
       const result = await signInWithPopup(auth, provider);
       console.log(result);
-      sessionStorage.setItem("username", result.user.displayName);
-      navigate("/profile");
+
+      if (result) { 
+        const response = await googleLogin(result.user.email, result.user.accessToken); 
+      
+        if(response) navigate("/profile");
+      }
     } catch (error) {
       console.error("Google Login Failed:", error);
       setError("Failed to login. Please try again.");
@@ -127,9 +131,11 @@ export default function LoginPage() {
         }
       </div>
 
-      <button className="back-btn" onClick={() => navigate("/")}>
+      <button className="back-btn" onClick={() => {navigate("/"); setEmail(null);}}>
         <ArrowBack />
       </button>
     </div>
   );
 }
+
+export default LoginPage;

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { auth } from "../../firebase";
 import { useAuth } from "../../features/Auth/useAuth"
 import { signOut } from "firebase/auth";
@@ -7,22 +7,35 @@ import { useNavigate } from "react-router-dom";
 import "./LogoutButton.css"
 
 export default function LogoutButton() {
+  const [userType, setUserType] = useState("");
   const navigate = useNavigate();
-  const storedUser = sessionStorage.getItem("username");
 
   const { logout } = useAuth();
+
+  useEffect(() => {
+      const loginForm = sessionStorage.getItem("LoggedInAs");
+  
+      if (loginForm) {
+        setUserType(loginForm);
+      }
+    }, []);
   
   const handleLogout = async () => {
     try {
-      if (storedUser){
-        console.log("Stored user: ", storedUser);
+      if (userType === 'AccountIndex'){
         await logout();
-        localStorage.clear();
+
+        window.dispatchEvent(new Event("storage"));
         navigate("/");
       }
-      await logout();
-      await signOut(auth);
-      navigate("/");
+      else {
+        await logout();
+        await signOut(auth);
+
+        window.dispatchEvent(new Event("storage"));
+
+        navigate("/");
+      }
     } catch (error) {
       console.error("Logout Failed:", error);
     }

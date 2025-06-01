@@ -98,13 +98,13 @@ const navbar = ({selected}) => {
                         </li>
                     </ul>
                 </div>
-                {email ? (<LogoutButton />) : 
+                {email ? (<LogoutButton onClick={() => setEmail(null)} />) : 
                 (<>
                     <a>
                         <button className="homePageLoginButton" onClick={() => navigate('/login')} style={{ cursor: 'pointer' }}>Log in</button>
                     </a>
                     <a>
-                        <button className="homePageSigninButton">Sign in</button>
+                        <button className="homePageSigninButton" onClick={() => navigate('/sign-in')} style={{ cursor: 'pointer' }}>Sign in</button>
                     </a>
                 </>) 
                 }

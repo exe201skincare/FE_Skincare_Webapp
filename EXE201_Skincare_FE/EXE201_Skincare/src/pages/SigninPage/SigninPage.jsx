@@ -100,7 +100,7 @@ export default function SigninPage() {
         </button>
       </form>
 
-      {!showOtpModal && (
+      {showOtpModal && (
         <OtpModal
             email={email}
             onClose={() => setShowOtpModal(false)}

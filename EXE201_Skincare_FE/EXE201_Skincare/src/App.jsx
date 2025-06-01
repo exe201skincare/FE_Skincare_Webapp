@@ -58,7 +58,8 @@ function AppRoutes() {
           </ThemeProvider>
         } />
         
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage accountAction={false} />} />
+        <Route path="/sign-in" element={<LoginPage accountAction={true} />} />
         <Route element={user ? <ProtectedRoutes user={user} /> : <ProtectedRoutes user={userAuth} />}>
           <Route path='/profile' element={ <ThemeProvider> <Navbar selected={"profile"}/> <ProfilePage /> </ThemeProvider> } />
         </Route>
