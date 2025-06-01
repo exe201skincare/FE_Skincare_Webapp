@@ -33,7 +33,8 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      sessionStorage.setItem("GG-username", result.user.displayName);
+      console.log(result);
+      sessionStorage.setItem("username", result.user.displayName);
       navigate("/profile");
     } catch (error) {
       console.error("Google Login Failed:", error);
@@ -44,16 +45,16 @@ export default function LoginPage() {
   const handleNormalLogin = async (e) => {
     e.preventDefault();
     try {
-      const user = await login(email, password);
-
-      if (user) {
-        console.log(`User ${user} has logged in`);
+      setError("");
+      const response = await login(email, password);
+      if (response) {
+        console.log(`Logged in as ${response.role} role`);
         setTimeout(() => {
-          navigate('/profile'/*role === "ADMIN" ? "/AdminPage/UserManagement" : "/HomePage"*/);
+          navigate(response.role === "Admin" ? "/AdminPage/" : "/profile");
         }, 100);
       }
-      else if (!user) {
-        setError("Failed to login. Please try again.");
+      if (response.message == "Network Error") {
+        setError("Network Error. Please try again later.");
       }
     } catch (error) {
       console.error("Login Failed:", error);

@@ -37,19 +37,19 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      // Temporary hardcoded check (simulating API response)
-      const dummyEmail = "nhatservicebotmail@gmail.com";
-      const dummyPassword = "cabhaftswgjgkvlz";
+      const response = await axios.post("http://skincareapp.somee.com/SkinCare/Auth/login", 
+        { email, password },
+        { withCredentials: true } 
+      );
 
-      if (email === dummyEmail && password === dummyPassword) {
-        // Simulated JWT
-        const simulatedToken = generateDummyJWT(email);
-
-        sessionStorage.setItem("accessToken", simulatedToken);
+      if (response) {
+        sessionStorage.setItem("username", response.data.name);
+        sessionStorage.setItem("role", response.data.role);
         sessionStorage.setItem("email", email);
+        
         window.dispatchEvent(new Event("storage"));
 
-        return email;
+        return response.data;
       } else {
         throw new Error("Invalid email or password");
       }
@@ -60,8 +60,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    sessionStorage.clear();
-    window.dispatchEvent(new Event("storage"));
+  axios.post(
+      "http://skincareapp.somee.com/SkinCare/Auth/logout",
+      {},
+      { withCredentials: true }
+    ).finally(() => {
+      sessionStorage.clear();
+      window.dispatchEvent(new Event("storage"));
+    });
   };
 
   if (loading) {
@@ -74,15 +80,6 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-// Utility function to simulate a JWT
-function generateDummyJWT(email) {
-  const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
-  const payload = btoa(JSON.stringify({ sub: email }));
-  const signature = btoa("fake-signature"); // not secure
-
-  return `${header}.${payload}.${signature}`;
-}
 
 
 //#region 

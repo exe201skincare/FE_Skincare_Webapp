@@ -60,7 +60,7 @@ function AppRoutes() {
         
         <Route path="/login" element={<LoginPage />} />
         <Route element={user ? <ProtectedRoutes user={user} /> : <ProtectedRoutes user={userAuth} />}>
-          <Route path='/profile' element={ <ProfilePage /> } />
+          <Route path='/profile' element={ <ThemeProvider> <Navbar selected={"profile"}/> <ProfilePage /> </ThemeProvider> } />
         </Route>
         
       </Routes>

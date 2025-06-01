@@ -8,13 +8,12 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCD0atvl3RZfUhYlD-l2m4BPHo4-F3y9bo",
-  authDomain: "gym-id-login.firebaseapp.com",
-  projectId: "gym-id-login",
-  storageBucket: "gym-id-login.firebasestorage.app",
-  messagingSenderId: "120857619975",
-  appId: "1:120857619975:web:7d09058d139c0aa82b04a2",
-  measurementId: "G-Q7SBBQQ02F"
+  apiKey: "AIzaSyCzqd0TVpFDK3H5vzPwW_4TbrLYch6x8sE",
+  authDomain: "skincare-f2d06.firebaseapp.com",
+  projectId: "skincare-f2d06",
+  storageBucket: "skincare-f2d06.firebasestorage.app",
+  messagingSenderId: "651340502703",
+  appId: "1:651340502703:web:50e14134a42918bb65a65a"
 };
 
 // Initialize Firebase

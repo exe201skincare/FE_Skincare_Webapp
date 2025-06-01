@@ -3,10 +3,22 @@ import Logo from "/logo skincare 2.svg";
 import "./Navbar.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-scroll";
+import { useEffect, useState } from "react";
+
+import LogoutButton from '../../features/AccountActions/LogoutButton'
 
 const navbar = ({selected}) => {
     const navigate = useNavigate();
     const { scrollYProgress } = useScroll();
+    const [email, setEmail] = useState(null);
+
+    useEffect(() => {
+        const savedEmail = sessionStorage.getItem("email");
+    
+        if (savedEmail) {
+          setEmail({ email: savedEmail });
+        }
+    }, []);
 
     useMotionValueEvent(scrollYProgress, "change",
     );
@@ -73,7 +85,8 @@ const navbar = ({selected}) => {
                             </a>
                         </li>
                         <li>
-                            <Link to="top" spy={true} smooth={true}>
+                            <Link to="top" spy={true} smooth={true} className={selected === "profile" ? 'selected' : ''}
+                                onClick={() => navigate('/profile')} style={{ cursor: 'pointer' }} >
                                 My Profile
                             </Link>
                         </li>
@@ -85,12 +98,16 @@ const navbar = ({selected}) => {
                         </li>
                     </ul>
                 </div>
-                <a>
-                    <button className="homePageLoginButton" onClick={() => navigate('/login')} style={{ cursor: 'pointer' }}>Log in</button>
-                </a>
-                <a>
-                    <button className="homePageSigninButton">Sign in</button>
-                </a>
+                {email ? (<LogoutButton />) : 
+                (<>
+                    <a>
+                        <button className="homePageLoginButton" onClick={() => navigate('/login')} style={{ cursor: 'pointer' }}>Log in</button>
+                    </a>
+                    <a>
+                        <button className="homePageSigninButton">Sign in</button>
+                    </a>
+                </>) 
+                }
             </div>
         </motion.div>
     );
