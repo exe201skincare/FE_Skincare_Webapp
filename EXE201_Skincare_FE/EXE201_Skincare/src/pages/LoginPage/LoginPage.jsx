@@ -57,11 +57,9 @@ const LoginPage = ({accountAction}) => {
           navigate(response.role === "Admin" ? "/AdminPage/" : "/profile");
         }, 100);
       }
-      if (response.message == "Network Error") {
-        setError("Network Error. Please try again later.");
-      }
+      else setError("Network Error. Please try again later.");
+      // if (response.message == "Network Error") 
     } catch (error) {
-      console.error("Login Failed:", error);
       setError("Failed to login. Please try again.");
     }
   };

@@ -7,11 +7,47 @@
     color: var(--primary-text-color);
 }
 
-.profilePage svg {
+body:has(.profilePage) .bgImg {
+    position: absolute;
+    left: -100px;
+    filter: blur(4px);
+    width: 100%;
+    height: 100vh;
+}
+body:has(.profilePage) .bgImg img {
+    width: 150%;
+}
+
+.profilePage .profileContainer {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profilePage .profileContainer .profileContent {
     position: relative;
+    z-index: 1;
+    width: 60%;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.profilePage .profileContainer .profileContent svg {
     z-index: 1;
     border-radius: 8px;
     width: 86px;
     height: 86px;
     color: var(--primary-text-color);
+}
+
+.profilePage .profileContainer .Box {
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
 }

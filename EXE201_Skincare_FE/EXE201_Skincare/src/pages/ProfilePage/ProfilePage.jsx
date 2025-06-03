@@ -9,6 +9,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const storedName = sessionStorage.getItem("username");
+    console.log("username: ", storedName);
     if (storedName) {
       setUserName(storedName);
     }
@@ -17,7 +18,12 @@ export default function ProfilePage() {
   return (
     <div className='profilePage'>
       <BGImage />
-      <AccountBox /> {userName}
+      <div className='profileContainer'>
+        <div className='profileContent Box'>
+          <AccountBox /> <div className='userName'>{userName}</div>
+        </div>
+      </div>
+      
     </div>
   );
 }

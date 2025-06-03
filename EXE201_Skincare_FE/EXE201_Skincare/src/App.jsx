@@ -14,6 +14,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 import ProtectedRoutes from "./utils/ProtectedRoute";
+import VIPPurchasePage from "./pages/VIPPurchasePage/VIPPurchasePage";
 
 function App() {
   return (
@@ -57,12 +58,14 @@ function AppRoutes() {
             <Footer />
           </ThemeProvider>
         } />
-        
+
         <Route path="/login" element={<LoginPage accountAction={false} />} />
         <Route path="/sign-in" element={<LoginPage accountAction={true} />} />
         <Route element={user ? <ProtectedRoutes user={user} /> : <ProtectedRoutes user={userAuth} />}>
           <Route path='/profile' element={ <ThemeProvider> <Navbar selected={"profile"}/> <ProfilePage /> </ThemeProvider> } />
         </Route>
+        
+        <Route path="/VIP-purchase" element={<ThemeProvider> <Navbar selected={""}/> <VIPPurchasePage /> <Footer /> </ThemeProvider> } />
         
       </Routes>
     </>
