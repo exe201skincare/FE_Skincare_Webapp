@@ -65,7 +65,8 @@ export const AuthProvider = ({ children }) => {
   const googleLogin = async (email, idToken) => {
     try {
       const response = await axios.post("https://skincareapp.somee.com/SkinCare/Auth/login-google", 
-        { idToken }
+        { idToken },
+        { withCredentials: true } 
       );
 
       if (response) {
