@@ -37,7 +37,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post("http://skincareapp.somee.com/SkinCare/Auth/login", 
+      console.log("email: " + email + " pass: " + password);
+      const response = await axios.post("https://skincareapp.somee.com/SkinCare/Auth/login", 
         { email, password },
         { withCredentials: true } 
       );
@@ -62,7 +63,7 @@ export const AuthProvider = ({ children }) => {
 
   const googleLogin = async (email, idToken) => {
     try {
-      const response = await axios.post("http://skincareapp.somee.com/SkinCare/Auth/login-google", 
+      const response = await axios.post("https://skincareapp.somee.com/SkinCare/Auth/login-google", 
         { idToken }
       );
 
@@ -86,7 +87,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
   axios.post(
-      "http://skincareapp.somee.com/SkinCare/Auth/logout",
+      "https://skincareapp.somee.com/SkinCare/Auth/logout",
       {},
       { withCredentials: true }
     ).finally(() => {

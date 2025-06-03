@@ -33,9 +33,9 @@ const LoginPage = ({accountAction}) => {
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log(result);
 
       if (result) { 
+        console.log(result.user.accessToken);
         const response = await googleLogin(result.user.email, result.user.accessToken); 
       
         if(response) navigate("/profile");
