@@ -6,6 +6,7 @@ import "./HomePage.css"
 
 import { useContext } from "react";
 import { themeContext } from "../../Context";
+import ChatBox from "../../components/ChatBox/ChatBox";
 
 export default function HomePage() {
   const theme = useContext(themeContext);
@@ -22,7 +23,7 @@ export default function HomePage() {
             <SwipeList/>
             <Reviews />
             <Services />
-            
+            <ChatBox />
         
         </div>
   )
