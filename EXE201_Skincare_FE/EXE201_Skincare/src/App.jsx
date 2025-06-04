@@ -29,6 +29,10 @@ function AppRoutes() {
   const [loading, setLoading] = useState(true);
   const { userAuth } = useAuth();
 
+  window.addEventListener('scroll', () => {
+    document.body.style.setProperty('--scroll', window.pageYOffset / (document.body.offsetHeight - window.innerHeight));
+  }, false);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser || null);
